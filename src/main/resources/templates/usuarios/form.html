@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Registrarse</title>
+</head>
+
+<body>
+    <div layout:fragment="contenido" class="container my-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 th:text="${titulo}" class="card-title">Datos de Usuario</h5>
+            </div>
+            <form action="/usuarios/guardar" th:object="${usuario}" method="post">
+                <div class="card-body">
+                    <div class="form">
+                        <label for="nombre" class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" maxlength="65"
+                            th:errorclass="'form-control alert-danger'">
+                    </div>
+                    <div class="form" sec:authorize="hasRole('ROLE_ADMINISTRADOR', 'ROLE_ESTILISTA')">
+                        <label for="notas" class="form-label">Notas</label>
+                        <input type="text" class="form-control" id="notas" th:field="*{notas}" maxlength="200">
+                    </div>
+                    <div class="form">
+                        <label for="genero" class="form-label">Género</label>
+                        <input type="text" class="form-control" id="genero" th:field="*{genero}" maxlength="20"
+                            th:errorclass="'form-control alert-danger'">
+                    </div>
+                    <div class="form">
+                        <label for="direccion" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="direccion" th:field="*{direccion}" maxlength="100"
+                            th:errorclass="'form-control alert-danger'">
+                    </div>
+                    <div class="form">
+                        <label for="telefono" class="form-label">Teléfono</label>
+                        <input type="text" class="form-control" id="telefono" th:field="*{telefono}" maxlength="65"
+                            th:errorclass="'form-control alert-danger'">
+                    </div>
+                    <div class="form">
+                        <label for="email" class="form-label">Correo</label>
+                        <input type="email" class="form-control" id="email" th:field="*{email}" maxlength="120"
+                            th:errorclass="'form-control alert-danger'">
+                    </div>
+                    <!-- sec:authorize="hasRole('ROLE_ADMINISTRADOR')" -->
+                    <div class="form" >
+                        <label for="idRol" class="form-label">Rol</label>
+                        <select name="idRol" class="form-select" id="idRol">
+                            <option th:each="r : ${roles}" th:value="${r.id}" th:text="${r}"></option>
+                        </select>
+                    </div>
+                    <div class="form">
+                        <label for="clave" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="clave" th:field="*{clave}"
+                            maxlength="120" th:errorclass="'form-control alert-danger'">
+                        <div class="form-text">La contraseña debe tener al menos 8 caracteres.</div>
+                    </div>
+                    <!-- Botones -->
+                    <div class="card-footer">
+                        <input type="submit" class="btn btn-primary btn-sm float-end my-3" value="Guardar">
+                        <a th:href="@{/usuarios/lista}" class="btn btn-secondary btn-sm float-end mx-2">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- scripts de la plantilla-->
+    <script th:fragment="js">
+    </script>
+</body>
+
+</html>

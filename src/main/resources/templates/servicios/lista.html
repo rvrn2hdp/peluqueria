@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Servicios</title>
+</head>
+
+<body>
+    <div layout:fragment="contenido" class="container">
+        <div class="card my-4">
+            <div class="card-header">
+                <h5 th:text="${titulo}" class="card-title">Lista de Servicios</h5>
+            </div>
+            <!-- Tabla de Servicios -->
+            <div class="card-body">
+                <table id="servicios" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Duración</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="s : ${servicios}">
+                            <td th:text="${s.descripcion}"></td>
+                            <td th:text="${s.precio}"></td>
+                            <td th:text="${s.duracion}"></td>
+                            <td th:text="${s.activo}"></td>
+                            <td>
+                                <a th:href="@{/servicios/editar/{id}(id=${s.id})}"
+                                    class="btn btn-primary btn-sm float-end mx-1">
+                                    Editar
+                                </a>
+                                <a th:href="@{/servicios/borrar/{id}(id=${s.id})}"
+                                    class="btn btn-danger btn-sm float-end mx-2">
+                                    Borrar
+                                </a>
+                                <!-- Botón para agregar una nueva cita -->
+                                <a th:href="@{/citas/nueva}" class="btn btn-success mx-2 btn-sm float-end">
+                                    Crear Cita
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- footer -->
+            <div class="card-footer">
+                <a th:href="@{/servicios/nuevo}" class="btn btn-primary btn-sm float-end">
+                    Crear Servicio
+                </a>
+            </div>
+        </div>
+
+        <!-- scripts de la plantilla-->
+        <script th:fragment="js"></script>
+</body>
+
+</html>

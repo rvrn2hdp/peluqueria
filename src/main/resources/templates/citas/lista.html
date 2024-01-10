@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Citas</title>
+</head>
+
+<body>
+    <div layout:fragment="contenido" class="container my-4">
+        <div class="card">
+            <div class="card-header">
+                Citas
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Notas</th>
+                            <th>Fecha y Hora</th>
+                            <th>Usuario</th>
+                            <th>Servicio</th>
+                            <th>Visita</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="cita : ${citas}">
+                            <td th:text="${cita.notas}"></td>
+                            <td th:text="${cita.fechaHora}"></td>
+                            <td th:text="${cita.usuario}"></td>
+                            <td th:text="${cita.servicio}"></td>
+                            <td th:text="${cita.visita}"></td>
+                            <td th:text="${cita.activo}"></td>
+                            <td>
+                                <a th:href="@{/citas/{id}/cancelar(id=${cita.id})}"
+                                    class="btn btn-danger btn-sm float-end mx-2">Cancelar</a>
+                                <a th:href="@{/citas/{id}/editar(id=${cita.id})}"
+                                    class="btn btn-secondary btn-sm float-end mx-2">Reprogramar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <a href="/citas/nueva" class="btn btn-success btn-sm float-end mx-2">Nueva Cita</a>
+                <a href="/citas/resumen" class="btn btn-primary btn-sm float-end mx-2">Resumen</a>
+                <a href="/index" class="btn btn-primary btn-sm float-end mx-2">Volver</a>
+            </div>
+        </div>
+    </div>
+    <!-- scripts de la plantilla-->
+    <script th:fragment="js"></script>
+</body>
+
+</html>

@@ -1,0 +1,133 @@
+* {
+    /* box-sizing: border-box; */
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
+    min-height: 100%;
+}
+
+h5 {
+    text-align: center;
+}
+
+.grid-container>* {
+    box-shadow: -1px 7px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.header {
+    grid-area: header;
+    background-color: rgb(252, 84, 255);
+    text-align: center;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    background-color: rgb(205, 55, 235);
+
+}
+
+.main {
+    grid-area: main;
+    background-color: rgb(238, 194, 238);
+    background-image: url("../img/fondo.png");
+    background-size: contain;
+    background-repeat: repeat-y;
+}
+
+.footer {
+    grid-area: footer;
+    background-color: rgb(79, 47, 77);
+}
+
+/* acomodando elementos con la propiedad grid-template-areas*/
+.grid-container {
+    display: grid;
+    gap: 10px;
+    grid-template-areas:
+        "header"
+        "sidebar"
+        "main"
+        "footer";
+    align-items: stretch;
+}
+
+@media (min-width: 600px) {
+    .grid-container {
+        grid-template:
+            "header main main" 70px
+            /* dando un alto */
+            "sidebar main main" auto
+            "footer main main" 70px /
+            400px auto;
+        /* y un ancho */
+    }
+}
+
+#infoContacto {
+    list-style-type: none;
+    /* tipo de lista desactivado */
+}
+
+#infoContacto li {
+    border: 1px solid grey;
+    padding: 5px;
+    /* espaciado entre los elementos y su contenido */
+    margin: 1px;
+    /* espaciado entre cada elemento */
+    border-radius: 3px;
+}
+
+table {
+    border: 1px solid grey;
+    width: 100%;
+    border-radius: 3px;
+    border-collapse: collapse;
+}
+
+thead {
+    padding: 5px;
+    border-radius: 3px;
+}
+
+td {
+    border: 1px solid grey;
+    padding: 3px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+#botones {
+    text-align: right;
+    list-style: none;
+}
+
+#botones li {
+    display: inline-block;
+}
+
+#botones a {
+    background: rgb(168, 198, 224);
+    color: #000000;
+    border-radius: 5px;
+    border-style: solid 1px #000000;
+    padding: 8px 25px;
+    white-space: nowrap;
+    transition: 0.3s;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+#botones a:hover {
+    background: rgb(180, 21, 132);
+    color: rgb(168, 198, 224);
+}

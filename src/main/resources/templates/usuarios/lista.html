@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Lista de Usuarios</title>
+</head>
+
+<body>
+    <div layout:fragment="contenido" class="container my-4">
+        <div class="card my-4">
+            <div class="card-header">
+                <h5 th:text="${titulo}" class="card-title">Lista de Usuarios</h5>
+            </div>
+            <!-- Tabla de Usuarios -->
+            <div class="card-body">
+                <table id="tablaUsuarios" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Notas</th>
+                            <th>Género</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>email</th>
+                            <th>Rol</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="u : ${usuarios}">
+                            <td th:text="${u.nombre}"></td>
+                            <td th:text="${u.notas}"></td>
+                            <td th:text="${u.genero}"></td>
+                            <td th:text="${u.direccion}"></td>
+                            <td th:text="${u.telefono}"></td>
+                            <td th:text="${u.email}"></td>
+                            <td th:text="${u.idRol}"></td>
+                            <td th:text="${u.activo}"></td>
+                            <td>
+                                <a th:href="@{/usuarios/editar/{id}(id=${u.id})}"
+                                    class="btn btn-primary btn-sm float-end">
+                                    editar
+                                </a>
+                                <a th:href="@{/usuarios/borrar/{id}(id=${u.id})}"
+                                    class="btn btn-danger btn-sm float-start">
+                                    borrar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- footer -->
+            <div class="card-footer">
+                <a th:href="@{/usuarios/nuevo}" class="btn btn-success btn-sm float-end">
+                    nuevo
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- scripts de la plantilla-->
+    <script th:fragment="js" th:src="@{/js/usuarios-list.js}"></script>
+</body>
+
+</html>

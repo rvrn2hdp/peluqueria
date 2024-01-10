@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Inicio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Bootstrap CSS CDN -->
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+            integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+            crossorigin="anonymous"
+        />
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="css/indexstyles.css" />
+    </head>
+    <body class="grid-body">
+        <header class="header">
+            <span>
+                <h1>Peluqueria</h1>
+            </span>
+        </header>
+        <div class="navbar flex justify-content-center align-items-center">
+            <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                id="menu-user"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+                Usuario
+            </button>
+            <ul class="dropdown-menu ajuste">
+                <li>
+                    <a
+                        class="dropdown-item btn-sm"
+                        href="userViews/register.html"
+                        >Registro</a
+                    >
+                </li>
+                <li>
+                    <a class="dropdown-item btn-sm" href="userViews/login.html"
+                        >Iniciar Sesion</a
+                    >
+                </li>
+            </ul>
+        </div>
+        <main class="main">
+            <div class="cajas-contenido flex">
+                <div
+                    class="card cajas-contenido flex-column justify-content-center"
+                >
+                    <img
+                        class="cajas-contenido"
+                        src="../img/card-oferta-horizontal.jpg"
+                        sizes="(max-width: 400px) 100vw, 400px"
+                        alt="..."
+                    />
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Oferta
+                            <i class="fa fa-undo" aria-hidden="true"></i>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            Descripcion de la oferta
+                        </h6>
+                        <p class="card-text">
+                            Esta oferta está disponible para los usuarios
+                            registrados. Tipo de servicios que incluyen la
+                            oferta.
+                        </p>
+                        <a href="#" class="btn btn-primary">Reservar</a>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="cajas-contenido flex">
+                <label for="registro">
+                    Registrate para reservar tus turnos en la peluqueria y
+                    obtener un descuento en tu primer reserva
+                </label>
+                <a href="#" class="btn btn-primary"> Registrarse </a>
+            </div>
+            <br />
+            <div class="cajas-contenido flex">
+                <label for="servicios">
+                    Si querés ver los servicios de la peluqueria ¡Hacé click
+                    acá!
+                </label>
+                <a href="#" class="btn btn-primary"> Ver servicios </a>
+            </div>
+            <br />
+            <div class="descripcion cajas-contenido">
+                <div class="card cajas-contenido">
+                    <div class="card-body">
+                        <h5 class="card-title">Acerca de esta Peluqueria</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">
+                            Descripcion de la Peluqueria
+                        </h6>
+                        <p class="card-text">
+                            Some quick example text to build on the card title
+                            and make up the bulk of the card's content.
+                        </p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+            </div>
+            <br />
+        </main>
+        <footer class="footer">
+            <div class="text-bg-dark mb-3">
+                <h5>Footer</h5>
+                <h6>Footer</h6>
+                <p>Footer</p>
+            </div>
+        </footer>
+    </body>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="../javascript/indexscripts.js"></script>
+</html>

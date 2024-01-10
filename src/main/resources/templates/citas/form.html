@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Formulario para Citas</title>
+</head>
+
+<body>
+    <div layout:fragment="contenido" class="container my-4">
+        <!-- Formulario Para Agregar Cita -->
+        <div class="card">
+            <div class="card-header">
+                <h5 th:text="${titulo}">Formulario para Citas</h5>
+            </div>
+            <form th:action="@{/citas/guardar}" th:object="${cita}" method="post">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="fechaHora" class="col-sm-2 col-form-label">Fecha</label>
+                        <div class="col-sm-6">
+                            <input type="" th:field="*{fechaHora}" class="form-control" id="fechaHora"
+                                required>
+                        </div>
+                    </div>
+                    <!-- campo para guardar notas -->
+                    <div class="form-group row">
+                        <label for="notas" class="col-sm-2 col-form-label">Notas</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{notas}" class="form-control" id="notas" placeholder="Notas"
+                                maxlength="200">
+                        </div>
+                    </div>
+                    <!-- check box para saber si la cita es a domicilio o en el negocio -->
+                    <div class="form-group row">
+                        <label for="domicilio" class="col-sm-2 col-form-label">a Domicilio</label>
+                        <div class="col-sm-6">
+                            <input type="checkbox" th:field="*{visita}" id="visita">
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" class="btn btn-primary btn-sm float-end my-3" value="Guardar">
+                        <a th:href="@{/citas/lista}" class="btn btn-secondary btn-sm float-end mx-2">Cancelar</a>
+                    </div>
+                </div>
+
+                <!-- scripts de la plantilla-->
+                <script th:fragment="js"></script>
+</body>
+
+</html>

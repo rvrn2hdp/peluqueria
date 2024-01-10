@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <meta charset="UTF-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <title th:text="${titulo}">Formulario Para Agregar Servicios</title>
+</head>
+
+<body>
+    <div layout:fragment="contenido" class="container my-4">
+        <!-- Formulario Para Agregar Servicios -->
+        <div class="card">
+            <!-- encabezado -->
+            <div class="card-header">
+                <h5 th:text="${titulo}">Formulario Para Agregar Servicios</h5>
+            </div>
+            <!-- cuerpo -->
+            <form action="/servicios/guardar" th:object="${servicio}" method="post">
+                <div class="card-body">
+                    <div class="form">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}"
+                            maxlength="200" th:errorclass="'form-control alert-danger'">
+                        <small class="form-label text-danger" th:errors="*{descripcion}"></small>
+                    </div>
+                    <div class="form">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input type="text" class="form-control" id="precio" th:field="*{precio}" maxlength="65"
+                            th:errorclass="'form-control alert-danger'">
+                        <small class="form-label text-danger" th:errors="*{precio}"></small>
+                    </div>
+                    <div class="form">
+                        <label for="duracion" class="form-label">Duración</label>
+                        <input type="text" class="form-control" id="duracion" th:field="*{duracion}" maxlength="65"
+                            th:errorclass="'form-control alert-danger'">
+                        <small class="form-label text-danger" th:errors="*{duracion}"></small>
+                    </div>
+                </div>
+                <!-- footer -->
+                <div class="card-footer">
+                    <input type="submit" class="btn btn-primary btn-sm float-end my-3" value="Guardar">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- scripts de la plantilla-->
+    <script th:fragment="js"></script>
+</body>
+
+</html>

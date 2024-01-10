@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Horarios</title>
+</head>
+
+<body>
+    <div layout:fragment="contenido" class="container my-4">
+        <!-- Lista de Horarios -->
+        <div class="card">
+            <!-- encabezado -->
+            <div class="card-header">
+                <h5 th:text="${titulo}">Lista de Horarios</h5>
+            </div>
+            <!-- Tabla de Horarios -->
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Apertura Mañana</th>
+                            <th>Cierre Mañana</th>
+                            <th>Apertura Tarde</th>
+                            <th>Cierre Tarde</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="horario : ${horarios}">
+                            <td th:text="${horario.getHorManAp()}"></td>
+                            <td th:text="${horario.getHorManFin()}"></td>
+                            <td th:text="${horario.getHorTarAp()}"></td>
+                            <td th:text="${horario.getHorTarFin()}"></td>
+                            <td>
+                                <a th:href="@{/horarios/editar/{id}(id=${horario.id})}"
+                                    class="btn btn-primary btn-sm float-end">
+                                    editar
+                                </a>
+                            </td>
+                            <td>
+                                <a th:href="@{/horarios/borrar/{id}(id=${horario.id})}"
+                                    class="btn btn-danger btn-sm float-end">
+                                    borrar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <a th:href="@{/horarios/agregar}" class="btn btn-primary btn-sm float-end my-3">Agregar Horario</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- scripts de la plantilla-->
+    <script th:fragment="js"></script>
+</body>
+
+</html>

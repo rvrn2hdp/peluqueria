@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>plantilla</title>
+</head>
+
+<body>
+    <div layout:fragment="contenido">
+        <header class="header">
+            <h1>Iniciar Sesión</h1>
+        </header>
+        <aside class="aside">
+            <div class="loginform">
+                <form action="">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Correo Electronico</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            placeholder="Enter email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Contraseña</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                    </div>
+                    <a href="profile.html" class="btn btn-primary">Iniciar Sesion</a>
+                </form>
+            </div>
+            <div class="margin-0">
+                <div class="flex flex-column align-center">
+                    <p class="label-v3 text-battleship-grey">
+                        ¿No tenés una cuenta?
+                        <a href="#" class="label-1" data-no-instant="">
+                            Registrarse
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </aside>
+        <main class="main">
+            <h5>contenido</h5>
+            <h3>Imagen y Fondo</h3>
+        </main>
+        <footer class="footer footer d-flex justify-content-center align-items-center text-secondary">
+            <h3>O...</h3>
+        </footer>
+    </div>
+
+    <!-- scripts de la plantilla-->
+    <script th:fragment="js"></script>
+</body>
+
+</html>
