@@ -1,6 +1,4 @@
-### TODO
-
-Por Hacer:
+### Por Hacer
 
 * Implementar Spring Security 6 para la autenticación de usuarios con MySQL.
 * Implementar Spring Security 6 para la administración de credenciales con MySQL.
