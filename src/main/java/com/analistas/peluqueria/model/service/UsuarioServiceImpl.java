@@ -1,9 +1,10 @@
 package com.analistas.peluqueria.model.service;
 
+import com.analistas.peluqueria.model.entity.Rol;
 import com.analistas.peluqueria.model.entity.Usuario;
 import com.analistas.peluqueria.model.repository.IUsuarioRepository;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
 
 import lombok.NonNull;
@@ -22,6 +23,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Autowired
     IUsuarioRepository usuarioRepo;
 
+    @Autowired
+    IRolService rolService;
+
     @Override
     @Transactional(readOnly = true)
     public List<Usuario> buscarTodo() {
@@ -32,42 +36,52 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Transactional(readOnly = true)
     public List<Usuario> buscarEstilistas() {
 
-        Iterable<Usuario> usuarios = usuarioRepo.findAll();
+        // Crear instancia de rol estilista:
+        Rol Estilista = rolService.buscarPorId(2L);
 
-        List<Usuario> estilistas = new ArrayList<>();
+        return usuarioRepo.findByIdRol(Estilista);
 
-        for (Usuario usuario : usuarios) {
-            if (usuario.getIdRol().getDescripcion().equals("ROLE_ESTILISTA")) {
-                estilistas.add(usuario);
-            }
-        }
+        // Iterable<Usuario> usuarios = usuarioRepo.findAll();
 
-        return estilistas;
+        // List<Usuario> estilistas = new ArrayList<>();
+
+        // for (Usuario usuario : usuarios) {
+        // if (usuario.getIdRol().getDescripcion().equals("ROLE_ESTILISTA")) {
+        // estilistas.add(usuario);
+        // }
+        // }
+
+        // return estilistas;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<Usuario> buscarClientes() {
 
-        Iterable<Usuario> usuarios = usuarioRepo.findAll();
+        // Crear instancia de rol usuario:
+        Rol Usuario = rolService.buscarPorId(1L);
 
-        List<Usuario> clientes = new ArrayList<>();
+        return usuarioRepo.findByIdRol(Usuario);
 
-        for (Usuario usuario : usuarios) {
-            if (usuario.getIdRol().getDescripcion().equals("ROLE_USUARIO")) {
-                clientes.add(usuario);
-            }
-        }
+        // Iterable<Usuario> usuarios = usuarioRepo.findAll();
 
-        return clientes;
-        /*
-         * List<Usuario> clientes = StreamSupport.stream(usuarios.spliterator(), true)
-         * .filter(obj -> obj.getIdRol().getDescripcion().equals("ROLE_ESTILISTA"))
-         * .filter(obj -> obj.getIdRol().getDescripcion().equals("ROLE_ADMINISTRADOR"))
-         * .collect(Collectors.toList());
-         * 
-         * return clientes;
-         */
+        // List<Usuario> clientes = new ArrayList<>();
+
+        // for (Usuario usuario : usuarios) {
+        //     if (usuario.getIdRol().getDescripcion().equals("ROLE_USUARIO")) {
+        //         clientes.add(usuario);
+        //     }
+        // }
+
+        // return clientes;
+
+        // List<Usuario> clientes = StreamSupport.stream(usuarios.spliterator(), true)
+        //         .filter(obj -> obj.getIdRol().getDescripcion().equals("ROLE_ESTILISTA"))
+        //         .filter(obj -> obj.getIdRol().getDescripcion().equals("ROLE_ADMINISTRADOR"))
+        //         .collect(Collectors.toList());
+
+        // return clientes;
+
     }
 
     @Override
@@ -80,21 +94,23 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Transactional(readOnly = true)
     public Usuario buscarPorEmail(String email) {
 
-        Iterable<Usuario> usuarios = usuarioRepo.findAll();
+        return usuarioRepo.findByEmail(email);
 
-        Usuario usuario = null;
+        // Iterable<Usuario> usuarios = usuarioRepo.findAll();
 
-        for (Usuario u : usuarios) {
+        // Usuario usuario = null;
 
-            if (u.getEmail().equals(email)) {
-                usuario = u;
-                break;
-            } else {
-                usuario = null;
-            }
-        }
+        // for (Usuario u : usuarios) {
 
-        return usuario;
+        //     if (u.getEmail().equals(email)) {
+        //         usuario = u;
+        //         break;
+        //     } else {
+        //         usuario = null;
+        //     }
+        // }
+
+        // return usuario;
     }
 
     @Override

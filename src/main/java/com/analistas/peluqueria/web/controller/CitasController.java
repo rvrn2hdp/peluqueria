@@ -7,6 +7,9 @@ package com.analistas.peluqueria.web.controller;
 import com.analistas.peluqueria.model.entity.Cita;
 import com.analistas.peluqueria.model.service.ICitaService;
 import jakarta.validation.Valid;
+
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,7 +40,10 @@ public class CitasController {
     public String listar(Model model) {
 
         model.addAttribute("titulo", "Listado de Citas");
-        model.addAttribute("citas", citaService.buscarActivas());
+        model.addAttribute("citas", citaService.buscarTodo());
+        model.addAttribute("citasactivas", citaService.buscarActivas());
+        model.addAttribute("citasFecha", citaService.buscarPorFecha(LocalDateTime.now()));
+        model.addAttribute("citasUserActivas", citaService.buscarActivasPorUsuario(1L));
 
         return "citas/lista";
     }

@@ -42,7 +42,11 @@ public class UsuarioController {
     public String listar(Model model) {
 
         model.addAttribute("titulo", "Listado de usuarios");
-        model.addAttribute("usuarios", usuarioService.buscarClientes());
+        model.addAttribute("usuarios", usuarioService.buscarTodo());
+        model.addAttribute("estilistas", usuarioService.buscarEstilistas());
+        model.addAttribute("clientes", usuarioService.buscarClientes());
+        // cargar un usuario segun su email
+        model.addAttribute("usuario", usuarioService.buscarPorEmail("clienteuno@email.com"));
 
         return "usuarios/lista";
     }

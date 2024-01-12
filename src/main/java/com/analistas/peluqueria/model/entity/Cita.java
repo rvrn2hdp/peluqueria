@@ -11,7 +11,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -31,7 +30,6 @@ public class Cita {
     private String notas;
     
     @Column(name = "fecha_hora", unique = true)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm z")
     private LocalDateTime fechaHora;
     
     @Column(columnDefinition = "boolean default false")

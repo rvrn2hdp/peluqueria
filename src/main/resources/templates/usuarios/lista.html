@@ -10,7 +10,8 @@
 
 <body>
     <div layout:fragment="contenido" class="container my-4">
-        <div class="card my-4">
+        <!-- todos -->
+        <div class="card">
             <div class="card-header">
                 <h5 th:text="${titulo}" class="card-title">Lista de Usuarios</h5>
             </div>
@@ -59,6 +60,145 @@
                 <a th:href="@{/usuarios/nuevo}" class="btn btn-success btn-sm float-end">
                     nuevo
                 </a>
+            </div>
+        </div>
+        <!-- estilistas -->
+        <div class="card">
+            <div class="card-header">
+                <h5 th:text="${titulo}" class="card-title">Lista de Usuarios</h5>
+            </div>
+            <!-- Tabla de Usuarios -->
+            <div class="card-body">
+                <table id="tablaEstilistas" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Notas</th>
+                            <th>Género</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>email</th>
+                            <th>Rol</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="u : ${estilistas}">
+                            <td th:text="${u.nombre}"></td>
+                            <td th:text="${u.notas}"></td>
+                            <td th:text="${u.genero}"></td>
+                            <td th:text="${u.direccion}"></td>
+                            <td th:text="${u.telefono}"></td>
+                            <td th:text="${u.email}"></td>
+                            <td th:text="${u.idRol}"></td>
+                            <td th:text="${u.activo}"></td>
+                            <td>
+                                <a th:href="@{/usuarios/editar/{id}(id=${u.id})}"
+                                    class="btn btn-primary btn-sm float-end">
+                                    editar
+                                </a>
+                                <a th:href="@{/usuarios/borrar/{id}(id=${u.id})}"
+                                    class="btn btn-danger btn-sm float-start">
+                                    borrar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- footer -->
+            <div class="card-footer">
+                <a th:href="@{/usuarios/nuevo}" class="btn btn-success btn-sm float-end">
+                    nuevo
+                </a>
+            </div>
+        </div>
+        <!-- clientes -->
+        <div class="card">
+            <div class="card-header">
+                <h5 th:text="${titulo}" class="card-title">Lista de Usuarios</h5>
+            </div>
+            <!-- Tabla de Usuarios -->
+            <div class="card-body">
+                <table id="tablaClientes" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Notas</th>
+                            <th>Género</th>
+                            <th>Dirección</th>
+                            <th>Teléfono</th>
+                            <th>email</th>
+                            <th>Rol</th>
+                            <th>Activo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="u : ${clientes}">
+                            <td th:text="${u.nombre}"></td>
+                            <td th:text="${u.notas}"></td>
+                            <td th:text="${u.genero}"></td>
+                            <td th:text="${u.direccion}"></td>
+                            <td th:text="${u.telefono}"></td>
+                            <td th:text="${u.email}"></td>
+                            <td th:text="${u.idRol}"></td>
+                            <td th:text="${u.activo}"></td>
+                            <td>
+                                <a th:href="@{/usuarios/editar/{id}(id=${u.id})}"
+                                    class="btn btn-primary btn-sm float-end">
+                                    editar
+                                </a>
+                                <a th:href="@{/usuarios/borrar/{id}(id=${u.id})}"
+                                    class="btn btn-danger btn-sm float-start">
+                                    borrar
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- footer -->
+            <div class="card-footer">
+                <a th:href="@{/usuarios/nuevo}" class="btn btn-success btn-sm float-end">
+                    nuevo
+                </a>
+            </div>
+        </div>
+
+        <!-- usuario encontrado por email -->
+        <div class="card">
+            <div class="card-header">
+                <h5 th:text="${titulo}" class="card-title">Usuario</h5>
+            </div>
+            <div class="card-body">
+                <table id="tablaUsuario" class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Notas</th>
+                            <th>Género</th>
+                            <th>Dirección</th>
+                            <th>Telefono</th>
+                            <th>Email</th>
+                            <th>Rol</th>
+                            <th>Activo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="u : ${usuario}">
+                            <td th:text="${u.nombre}"></td>
+                            <td th:text="${u.notas}"></td>
+                            <td th:text="${u.genero}"></td>
+                            <td th:text="${u.direccion}"></td>
+                            <td th:text="${u.telefono}"></td>
+                            <td th:text="${u.email}"></td>
+                            <td th:text="${u.idRol}"></td>
+                            <td th:text="${u.activo}"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

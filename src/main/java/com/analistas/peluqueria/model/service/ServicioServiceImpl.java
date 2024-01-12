@@ -7,8 +7,8 @@ package com.analistas.peluqueria.model.service;
 import com.analistas.peluqueria.model.entity.Servicio;
 import com.analistas.peluqueria.model.repository.IServicioRepository;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+// import java.util.stream.Collectors;
+// import java.util.stream.StreamSupport;
 
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +36,15 @@ public class ServicioServiceImpl implements IServicioService {
     @Transactional(readOnly = true)
     public List<Servicio> buscarActivos(boolean activo) {
 
-        Iterable <Servicio> servicios = servicioRepo.findAll();
+        return servicioRepo.findByActivo(activo);
 
-        List<Servicio> activos = StreamSupport.stream(servicios.spliterator(), false)
-            .filter(obj -> obj.isActivo() == activo)
-            .collect(Collectors.toList());
+        // Iterable <Servicio> servicios = servicioRepo.findAll();
 
-        return activos;
+        // List<Servicio> activos = StreamSupport.stream(servicios.spliterator(), false)
+        //     .filter(obj -> obj.isActivo() == activo)
+        //     .collect(Collectors.toList());
+
+        // return activos;
     }
 
     @Override
