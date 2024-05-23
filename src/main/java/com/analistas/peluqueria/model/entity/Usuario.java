@@ -39,6 +39,7 @@ public class Usuario {
     @Size(min = 5, max = 80)
     private String clave;
 
+    // La relación deberá ser ManyToMany para que Spring Boot Security funcione bien...
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_rol", referencedColumnName = "id")
