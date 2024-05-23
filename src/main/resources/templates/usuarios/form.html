@@ -21,7 +21,8 @@
                         <input type="text" class="form-control" id="nombre" th:field="*{nombre}" maxlength="65"
                             th:errorclass="'form-control alert-danger'">
                     </div>
-                    <div class="form" sec:authorize="hasRole('ROLE_ADMINISTRADOR', 'ROLE_ESTILISTA')">
+                    <!-- sec:authorize="hasRole('ROLE_ADMINISTRADOR', 'ROLE_ESTILISTA')" -->
+                    <div class="form">
                         <label for="notas" class="form-label">Notas</label>
                         <input type="text" class="form-control" id="notas" th:field="*{notas}" maxlength="200">
                     </div>

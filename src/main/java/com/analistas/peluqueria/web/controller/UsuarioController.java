@@ -1,26 +1,33 @@
 package com.analistas.peluqueria.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
+//import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.analistas.peluqueria.model.entity.Rol;
 import com.analistas.peluqueria.model.entity.Usuario;
 import com.analistas.peluqueria.model.service.IRolService;
 import com.analistas.peluqueria.model.service.IUsuarioService;
 
+//import io.micrometer.core.ipc.http.HttpSender.Response;
 import jakarta.validation.Valid;
 
 @Controller
@@ -33,6 +40,9 @@ public class UsuarioController {
 
     @Autowired
     private IRolService rolService;
+
+    @Autowired
+    private BCryptPasswordEncoder bCrypt;
 
 //    @Autowired
 //    private BCryptPasswordEncoder bCrypt;
@@ -53,6 +63,7 @@ public class UsuarioController {
 
     // Crear un nuevo usuario:
     @GetMapping("/nuevo")
+    @Secured("ROLE_USER")
     public String nuevo(Model model) {
 
         model.addAttribute("titulo", "Crear nuevo usuario");
@@ -63,65 +74,61 @@ public class UsuarioController {
 
     // Editar un usuario:
     @GetMapping("/editar/{id}")
-    public String editar(@PathVariable("id") long id, Model model, RedirectAttributes flash) {
+    // @Secured("ROLE_USER")
+    // public String editar(@PathVariable("id") long id, Model model, RedirectAttributes flash) {
+    public ResponseEntity<?> editar(@PathVariable("id") long id, Model model, RedirectAttributes flash) {
+        
 
         Usuario usuario = usuarioService.buscarPorId(id);
 
         if (usuario == null) {
+            flash.addFlashAttribute("error", "El usuario no existe");
 
-            flash.addFlashAttribute("error", "Ocurrió un error");
-
-            return "redirect:/index";
+            return ResponseEntity.badRequest().body("El usuario no existe");
         }
 
-        model.addAttribute("titulo", "Editar Usuario");
-        model.addAttribute("usuario", usuario);
-
-        return "usuarios/form";
+        return ResponseEntity.ok(usuario);
     }
 
     // Guardar un usuario:
     @PostMapping("/guardar")
-    public String guardar(@Valid Usuario usuario, BindingResult result,
-            @RequestParam("idRol") Long idRol, Model model, SessionStatus status,
+    //@Secured("ROLE_USER")
+    // public String guardar(@Valid Usuario usuario, BindingResult result,
+    //         @RequestParam("idRol") Long idRol, Model model, SessionStatus status,
+    //         RedirectAttributes flash) {
+    public ResponseEntity<?> guardar(@Valid Usuario usuario, BindingResult result,
             RedirectAttributes flash) {
-
+                
         if (result.hasErrors()) {
+            
+            Map<String, String> errores = new HashMap<>();
 
-            model.addAttribute("titulo", "Error al guardar el usuario");
+            for (FieldError error : result.getFieldErrors()) {
+                
+                errores.put(error.getField(), error.getDefaultMessage());
 
-            return "usuarios/form";
+            }
+
+            return ResponseEntity.unprocessableEntity().body(errores);
         }
 
-        Long i = usuario.getId();
-
-        // Comprobar si se está guardando un nuevo usuario o editando uno existente:
-        String action = i == null ? "creado" : "editado";
-
-        // Encriptar la contraseñas:
-//        usuario.setClave(bCrypt.encode(usuario.getClave()));
-
-        // Asignar el rol al usuario:
-        usuario.setIdRol(rolService.buscarPorId(idRol));
-
-        flash.addFlashAttribute("success", "El usuario se ha " + action + " correctamente");
+        usuario.setActivo(true);
+        usuario.setClave(bCrypt.encode(usuario.getClave()));
 
         usuarioService.guardar(usuario);
 
-        status.setComplete();
-
-        return "redirect:/index";
+        return ResponseEntity.ok().build();
     }
 
     // Eliminar un usuario:
     @GetMapping("/borrar/{id}")
-    public String borrar(@PathVariable("id") Long id, RedirectAttributes flash) {
-
+    // @Secured("ROLE_USER")
+    // public String borrar(@PathVariable("id") Long id, RedirectAttributes flash) {
+    public ResponseEntity<?> borrar(@PathVariable("id") Long id) {
+    
         usuarioService.deshabilitar(id);
 
-        flash.addFlashAttribute("success", "El usuario ha sido eliminado correctamente");
-
-        return "redirect:/index";
+        return ResponseEntity.ok().build();
     }
 
     // Obtener la Lista de Roles para el formulario:

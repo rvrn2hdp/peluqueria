@@ -1,55 +1,47 @@
 <!DOCTYPE html>
-<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>plantilla</title>
+    <title th:text="${title}" >Iniciar Sesión</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
-    <div layout:fragment="contenido">
-        <header class="header">
-            <h1>Iniciar Sesión</h1>
-        </header>
-        <aside class="aside">
-            <div class="loginform">
-                <form action="">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Correo Electronico</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email" />
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Contraseña</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
-                    </div>
-                    <a href="profile.html" class="btn btn-primary">Iniciar Sesion</a>
-                </form>
+    <div layout:fragment="contenido" class="container my-4">
+        <div class="card">
+            <p th:if="${param.error}">Usuario o contraseña incorrectos</p>
+            <p th:if="${param.logout}">Sesión finalizada</p>
+            <div class="card-header">
+                Iniciar Sesión
             </div>
-            <div class="margin-0">
-                <div class="flex flex-column align-center">
-                    <p class="label-v3 text-battleship-grey">
-                        ¿No tenés una cuenta?
-                        <a href="#" class="label-1" data-no-instant="">
-                            Registrarse
-                        </a>
-                    </p>
+            <form th:action="@{/login}" method="post">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="username">username</label>
+                        <input type="text" class="form-control" id="username" name="username"
+                            placeholder="username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">password</label>
+                        <input type="password" class="form-control" id="password" name="password"
+                            placeholder="password">
+                    </div>
                 </div>
-            </div>
-        </aside>
-        <main class="main">
-            <h5>contenido</h5>
-            <h3>Imagen y Fondo</h3>
-        </main>
-        <footer class="footer footer d-flex justify-content-center align-items-center text-secondary">
-            <h3>O...</h3>
-        </footer>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                </div>
+            </form>
+        </div>
     </div>
 
-    <!-- scripts de la plantilla-->
-    <script th:fragment="js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

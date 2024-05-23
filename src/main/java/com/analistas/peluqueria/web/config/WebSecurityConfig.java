@@ -1,80 +1,77 @@
 package com.analistas.peluqueria.web.config;
 
-// import javax.sql.DataSource;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.context.annotation.Bean;
-// import org.springframework.context.annotation.Configuration;
-// import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-// import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
-// import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-// import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-// import org.springframework.security.web.SecurityFilterChain;
-// import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import javax.sql.DataSource;
 
-// @Configuration
-// @EnableWebSecurity
-// @EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
-// public class WebSecurityConfig {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-//     @Autowired
-//     DataSource dataSource;
+@Configuration
+@EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
+public class WebSecurityConfig {
 
-//     @Autowired
-//     private BCryptPasswordEncoder bCryptPasswordEncoder;
+        @Autowired
+        DataSource dataSource;
 
-//     @Bean
-//     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        @Autowired
+        private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//         http
-//                 .authorizeHttpRequests((requests) -> requests
-//                         .requestMatchers("/css/**", "/js/**", "/img/**", "/", "/index")
-//                         .permitAll()
-//                         .anyRequest().authenticated())
-//                 .formLogin((form) -> form
-//                         .loginPage("/login")
-//                         .permitAll())
-//                 .logout((logout) -> logout
-//                         .permitAll()
-//                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                         .logoutSuccessUrl("/login"));
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-//         return http.build();
-//     }
+                http
+                                .authorizeHttpRequests((requests) -> requests
+                                                .requestMatchers("/css/**", "/js/**", "/img/**", "/", "/index")
+                                                .permitAll()  
+                                                .anyRequest().authenticated())
+                                .formLogin((form) -> form
+                                                .loginPage("/login")
+                                                .permitAll())
+                                .logout((logout) -> logout
+                                                .permitAll()
+                                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                                .logoutSuccessUrl("/index"));
 
-//     @Autowired
-//     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+                return http.build();
+        }
 
-//         // Autenticar con JDBC
-//         auth
-//                 .jdbcAuthentication()
-//                 .dataSource(dataSource)
-//                 .usersByUsernameQuery(
-//                         "SELECT nombre, clave, activo FROM usuario WHERE nombre = ?")
-//                 .authoritiesByUsernameQuery(
-//                         "SELECT u.nombre, r.nombre FROM rol r INNER JOIN usuario u ON u.id_permiso = r.id WHERE u.nombre = ?")
-//                 .passwordEncoder(bCryptPasswordEncoder);
+        // @Autowired
+        // public void configureGlobal(AuthenticationManagerBuilder auth) throws
+        // Exception {
 
-//     }
+        // // Autenticar con JDBC
+        // auth
+        // .jdbcAuthentication()
+        // .dataSource(dataSource)
+        // .usersByUsernameQuery(
+        // "SELECT nombre, clave, activo FROM usuario WHERE nombre = ?")
+        // .authoritiesByUsernameQuery(
+        // "SELECT u.nombre, r.descripcion FROM rol r INNER JOIN usuario u ON u.id_rol =
+        // r.id WHERE u.nombre = ?")
+        // .passwordEncoder(bCryptPasswordEncoder);
 
-//     /*
-//      * @Bean
-//      * public UserDetailsService userDetailsService() {
-//      * 
-//      * UserDetails user = User.withDefaultPasswordEncoder()
-//      * .username("user")
-//      * .password("password")
-//      * .roles("USER")
-//      * .build();
-//      * 
-//      * UserDetails admin = User.withDefaultPasswordEncoder()
-//      * .username("admin")
-//      * .password("password")
-//      * .roles("ADMIN")
-//      * .build();
-//      * 
-//      * return new InMemoryUserDetailsManager(user, admin);
-//      * }
-//      */
+        // }
 
-// }
+        @Bean
+        public UserDetailsService userDetailsService() {
+
+                UserDetails user = User.withUsername("user")
+                                .password(bCryptPasswordEncoder.encode("password"))
+                                .roles("USER")
+                                .build();
+
+                return new InMemoryUserDetailsManager(user);
+        }
+
+}

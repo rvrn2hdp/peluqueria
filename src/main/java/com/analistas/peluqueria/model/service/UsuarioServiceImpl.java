@@ -9,6 +9,7 @@ import java.util.List;
 
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,9 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
     @Autowired
     IRolService rolService;
+
+    // @Autowired
+    // BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     @Transactional(readOnly = true)
@@ -116,6 +120,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Override
     @Transactional()
     public void guardar(@NonNull Usuario usuario) {
+
+        // encriptar la contraseña:
+        // usuario.setClave(bCryptPasswordEncoder.encode(usuario.getClave()));
+        // usuario.setIdRol(rolService.buscarPorId(1L));
+
         usuarioRepo.save(usuario);
     }
 
